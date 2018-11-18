@@ -1,7 +1,8 @@
 import { UserRO } from './user.dto';
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import { IdeaEntity } from 'idea/idea.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -20,6 +21,9 @@ export class UserEntity {
 
   @Column('text')
   password: string;
+
+  @OneToMany(type => IdeaEntity, ideas => ideas.author)
+  ideas: IdeaEntity[];
 
   @BeforeInsert()
   async hashPassword() {
