@@ -1,16 +1,15 @@
-import { LoggingInterceptor } from './shared/logging.interceptor';
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { LoggingInterceptor } from './shared/logging.interceptor';
+import { ApiModule } from './api.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { IdeaModule } from './idea/idea.module';
 import { HttpErrorFilter } from './shared/http-error.filter';
-import { UserModule } from './user/user.module';
-
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), IdeaModule, UserModule],
+  imports: [TypeOrmModule.forRoot(), ApiModule],
   controllers: [AppController],
   providers: [
     AppService,

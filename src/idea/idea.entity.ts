@@ -1,4 +1,3 @@
-import { UserEntity } from './../user/user.entity';
 import { 
   Entity, 
   PrimaryGeneratedColumn, 
@@ -7,7 +6,11 @@ import {
   Column, 
   ManyToOne,
   ManyToMany,
-  JoinTable} from 'typeorm';
+  JoinTable,
+  OneToMany} from 'typeorm';
+
+import { CommentEntity } from '../comment/comment.entity';
+import { UserEntity } from '../user/user.entity';
 
 @Entity('idea')
 export class IdeaEntity {
@@ -36,4 +39,7 @@ export class IdeaEntity {
   @ManyToMany(type => UserEntity, {cascade: true})
   @JoinTable()
   downvotes: UserEntity[];
+
+  @OneToMany(type => CommentEntity, comment => comment.idea, { cascade: true })
+  comments: CommentEntity[];
 }

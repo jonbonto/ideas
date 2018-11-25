@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Get } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  root(): string {
-    return 'Hello World!';
+  
+  @Get()
+  root() {
+    return { ping: 'pong' };
   }
 }

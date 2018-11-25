@@ -1,8 +1,9 @@
-import { UserRO } from './user.dto';
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, Column, BeforeInsert, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { IdeaEntity } from 'idea/idea.entity';
+
+import { UserRO } from './user.dto';
+import { IdeaEntity } from '../idea/idea.entity';
 
 @Entity('user')
 export class UserEntity {
@@ -22,7 +23,7 @@ export class UserEntity {
   @Column('text')
   password: string;
 
-  @OneToMany(type => IdeaEntity, ideas => ideas.author)
+  @OneToMany(type => IdeaEntity, ideas => ideas.author, {cascade: true})
   ideas: IdeaEntity[];
 
   @ManyToMany(type => IdeaEntity, {cascade: true})
